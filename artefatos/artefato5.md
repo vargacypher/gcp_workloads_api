@@ -56,7 +56,7 @@
       ]
     },
     {
-      "role": "roles/iam.serviceAccountUser", //permissao para anexar uma conta de serviço a um recurso.
+      "role": "roles/iam.serviceAccountUser", 
       "members": [
         "serviceAccount:api-sa@my-project.iam.gserviceaccount.com"
       ]
