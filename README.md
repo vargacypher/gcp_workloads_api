@@ -16,7 +16,7 @@ Em um novo projeto na GCP com **billing ativado**, **utilizando o cloud shell**
 **clonar o repo e definir o projeto**
 #### Provisionar contas e permissões (Provisiona bucket,contas de serviço, libera APIs de serviços, concede permissões as contas de serviços)
 ```shell
-python3 -m venv env 
+cd gcp_workloads_api && python3 -m venv env 
 source env/bin/activate
 pip3 install ansible requests google-auth
 
