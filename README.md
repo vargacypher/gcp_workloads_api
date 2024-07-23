@@ -14,7 +14,7 @@ Em um novo projeto na GCP com **billing ativado**, **utilizando o cloud shell**
 
 ### First step
 **clonar o repo e definir o projeto**
-#### Provisionar o ambiente e permissões (Provisiona bucket,contas de serviço, libera APIs de serviços, concede permissões as contas de serviços)
+#### Provisionar contas e permissões (Provisiona bucket,contas de serviço, libera APIs de serviços, concede permissões as contas de serviços)
 ```shell
 python3 -m venv env 
 source env/bin/activate
