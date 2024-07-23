@@ -9,7 +9,7 @@ Em um novo projeto na GCP com **billing ativado**, **utilizando o cloud shell**
 **Necessario conta com privilegios"
 
 ### First step
-**clonar o repo**
+**clonar o repo e definir o projeto**
 #### Provisionar o ambiente e permissoes
 ```shell
 python3 -m venv env 
