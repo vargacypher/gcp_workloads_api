@@ -1,0 +1,135 @@
+openapi: 3.0.0
+info:
+  title: Workloads Api
+  description: |
+    A Workloads Api permite que você faça cargas de dados
+    de forma segura e confiável, utilizando padrões REST e corpos das mensagens em
+    formato JSON.
+  version: 1.0.0
+paths:
+  /v1/workloads/batch-cluster/submit-demo:
+    post:
+      summary: Submit
+      operationId: submit_v1_workloads_batch_cluster_submit_demo_post
+      parameters:
+        - name: python_file_url
+          in: query
+          required: false
+          schema:
+            type: string
+            default: gs://test_spk/spark_word_count.py
+            title: Python File Url
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/workloads/batch-cluster/get-demo-status/{workload_id}:
+    get:
+      summary: Status
+      operationId: status_v1_workloads_batch_cluster_get_demo_status__workload_id__get
+      parameters:
+        - name: workload_id
+          in: path
+          required: true
+          schema:
+            type: string
+            title: Workload Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/workloads/batch-cluster/get-demo-result:
+    get:
+      summary: Result Demo
+      operationId: result_demo_v1_workloads_batch_cluster_get_demo_result_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  type: object
+                type: array
+                title: Response Result Demo V1 Workloads Batch Cluster Get Demo Result Get
+  /healthcheck:
+    get:
+      summary: Get Status
+      operationId: get_status_healthcheck_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    SuccessResponse:
+      properties:
+        success:
+          anyOf:
+            - type: boolean
+          title: Success
+        response:
+          anyOf:
+            - type: string
+            - type: object
+            - items: {}
+              type: array
+          title: Response
+        requestId:
+          anyOf:
+            - type: string
+              format: uuid
+          title: Requestid
+      type: object
+      title: SuccessResponse
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+              - type: string
+              - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+        - loc
+        - msg
+        - type
+      title: ValidationError

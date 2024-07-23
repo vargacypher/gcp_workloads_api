@@ -1,4 +1,4 @@
-### Artefato 4: Documentos de Políticas de Segurança, Controle de Acesso e Procedimentos de Auditoria
+##### Artefato 4: Documentos de Políticas de Segurança, Controle de Acesso e Procedimentos de Auditoria
 
 **1. Políticas de Segurança Implementadas:**
 

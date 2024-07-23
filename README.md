@@ -25,6 +25,7 @@ ansible-playbook ./ansible/playbook.yaml
 
 #### Buildar app
 ```shell
+deactivate && rm -rf env
 gcloud builds submit --config cloudbuild.yaml --substitutions _PROJECT_ID=$PROJECT_ID,_COMMIT_SHA=latest,_REGION=$REGION,_API_SA=api-sa@$PROJECT_ID.iam.gserviceaccount.com,_SPARK_SA=spark-sa@$PROJECT_ID.iam.gserviceaccount.com
 
 gcloud compute networks subnets update default  --region=$REGION --enable-private-ip-google-access
