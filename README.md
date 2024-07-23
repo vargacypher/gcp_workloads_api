@@ -14,7 +14,7 @@ Em um novo projeto na GCP com **billing ativado**, **utilizando o cloud shell**
 
 ### First step
 **clonar o repo e definir o projeto**
-#### Provisionar o ambiente e permissoes
+#### Provisionar o ambiente e permissões (Provisiona bucket,contas de serviço, libera APIs de serviços, concede permissões as contas de serviços)
 ```shell
 python3 -m venv env 
 source env/bin/activate
@@ -25,6 +25,7 @@ export REGION=us-central1
 ansible-galaxy collection install google.cloud
 ansible-playbook ./ansible/playbook.yaml
 ```
+Em caso de erro no processo de liberar as APIs para o projeto ([*Setup google API`s*](https://github.com/vargacypher/gcp_workloads_api/blob/master/ansible/enable_apis.sh)), verificar possiveis serviços que podem não ter sido cobertas, habilitalos manualmente e rodar playbook novamente.
 
 
 #### Buildar app
