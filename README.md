@@ -9,6 +9,7 @@ Em um novo projeto na GCP com **billing ativado**, **utilizando o cloud shell**
 
 **Necessario conta com privilegios**
   roles/owner
+  roles/editor
 
 ### First step
 **clonar o repo e definir o projeto**
