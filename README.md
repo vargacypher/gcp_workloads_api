@@ -74,6 +74,8 @@ curl -X 'POST' $URL/v1/workloads/batch-cluster/submit-demo?python_file_url=gs%3A
 #Utilizar o workload_id retornado no step anterior para resgatar o status
 curl $URL/v1/workloads/batch-cluster/get-demo-status/${WORKLOAD_ID_RETORNADO_NO_CURL_ANTERIOR} -H "Authorization: Bearer $STS_TOKEN"  
 ```
+![image](https://github.com/user-attachments/assets/a113e8c0-dcdb-40b3-b7ec-56faa314cecc)
+
 
 #### Verificar 100 primeiros registros da tarefa de contar palavaras
 
