@@ -6,7 +6,9 @@
 Em um novo projeto na GCP com **billing ativado**, **utilizando o cloud shell**
 
 **Autorizar a CLI gcloud**: https://cloud.google.com/sdk/docs/authorizing?hl=pt-br
-**Necessario conta com privilegios"
+
+**Necessario conta com privilegios**
+  roles/owner
 
 ### First step
 **clonar o repo e definir o projeto**
