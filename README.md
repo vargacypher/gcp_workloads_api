@@ -8,7 +8,8 @@ Em um novo projeto na GCP com **billing ativado**, **utilizando o cloud shell**
 **Autorizar a CLI gcloud**: https://cloud.google.com/sdk/docs/authorizing?hl=pt-br
 
 **Necessario conta com privilegios**
-  roles/owner
+
+  roles/owner or 
   roles/editor
 
 ### First step
