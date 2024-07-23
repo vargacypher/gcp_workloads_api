@@ -1,0 +1,24 @@
+steps:
+  # Build the Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'build', '-t', 'gcr.io/${_PROJECT_ID}/workload_api_demo:${_COMMIT_SHA}', '.' ]
+
+  # Push the Docker image to Artifact Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'push', 'gcr.io/${_PROJECT_ID}/workload_api_demo:${_COMMIT_SHA}' ]
+
+  # Deploy as a cloud run service
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'gcloud'
+    args:
+      - 'run'
+      - 'deploy'
+      - 'workloads-api'
+      - '--image=gcr.io/${_PROJECT_ID}/workload_api_demo:${_COMMIT_SHA}'
+      - '--port=8000'
+      - '--platform=managed'
+      - '--region=${_REGION}'
+      - '--service-account=${_API_SA}'
+      - '--set-env-vars=PROJECT_ID=${_PROJECT_ID}'
+      - '--set-env-vars=REGION=${_REGION}'
+      - '--set-env-vars=SPARK_SA=${_SPARK_SA}'

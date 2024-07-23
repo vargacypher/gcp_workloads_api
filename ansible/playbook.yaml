@@ -1,0 +1,37 @@
+---
+- hosts: localhost
+  tasks:
+    - name: Setup google API`s
+      shell: sh enable_apis.sh
+    - name: Create a service account 1
+      google.cloud.gcp_iam_service_account:
+        name: spark-sa  
+        project: "{{ lookup('env', 'PROJECT_ID') }}" 
+        display_name: ""  
+        auth_kind: application 
+        state: present
+    - name: Create a service account 2
+      google.cloud.gcp_iam_service_account:
+        name: api-sa 
+        project: "{{ lookup('env', 'PROJECT_ID') }}"  
+        display_name: ""  
+        auth_kind: application 
+        state: present 
+    - name: Bind custom role to service account & enable-private-ip-google-access
+      shell: sh bind_roles.sh
+    - name: Create a GCP Storage Bucket
+      google.cloud.gcp_storage_bucket:
+        name: test_spk  
+        project: "{{ lookup('env', 'PROJECT_ID') }}" 
+        location: US
+        storage_class: STANDARD
+        auth_kind: application 
+        lifecycle:
+          rule:
+            - action:
+                type: Delete
+              condition:
+                age_days: 1
+    - name: Copy demo spark file to GCS
+      command: gsutil cp ./spark_word_count.py gs://test_spk/
+

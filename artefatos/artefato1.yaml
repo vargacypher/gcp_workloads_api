@@ -1,0 +1,504 @@
+openapi: 3.0.0
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/vargacypher/WorkloadApi/1.0.0
+info:
+  version: "1.0.0"
+  title: Sample Application For Workloads
+  termsOfService: 'http://swagger.io/terms/'
+  contact:
+    email: vargas93626@gmail.com
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+security:
+  - api_key: []
+
+paths:
+  /batch/submmit-job:
+    post:
+      tags:
+        - batch
+      summary: Create dataproc jobs
+      operationId: subimmit_batch_job
+      requestBody:
+        $ref: '#/components/requestBodies/Job'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '500':
+          description: internal server error operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExceptionResponse'
+
+
+  '/batch/get-job-status/{workload_id}':
+    get:
+      tags:
+        - batch
+      summary: Verify dataproc jobs status
+      operationId: get_batch_status
+      parameters:
+        - name: workload_id
+          in: path
+          description: ID of dataproc job
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '500':
+          description: internal server error operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExceptionResponse'
+        '404':
+          description: Job not found
+
+  '/batch/edit-job/{workload_id}':
+    post:
+      tags:
+        - batch
+      summary: Edit dataproc job
+      operationId: edit_batch_job
+      parameters:
+        - name: workload_id
+          in: path
+          description: ID of dataproc job
+          required: true
+          schema:
+            type: string
+      requestBody:
+        $ref: '#/components/requestBodies/Job'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '500':
+          description: internal server error operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExceptionResponse'
+        '404':
+          description: Job not found
+          
+  '/batch/delete-job/{workload_id}':
+    delete:
+      tags:
+        - batch
+      summary: Delete dataproc jobs
+      operationId: delete_dataproc_job
+      parameters:
+        - name: workload_id
+          in: path
+          description: ID of dataproc job
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '500':
+          description: internal server error operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExceptionResponse'
+        '404':
+          description: Job not found
+
+  /batch-async/submmit-job:
+    post:
+      tags:
+        - batch-async
+      summary: Create async dataproc jobs. Don`t accept scheduler_cfg
+      operationId: subimmit_async_batch_job
+      requestBody:
+        $ref: '#/components/requestBodies/Job'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '500':
+          description: internal server error operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExceptionResponse'
+
+
+  '/batch-async/get-job-status/{workload_id}':
+    get:
+      tags:
+        - batch-async
+      summary: Verify dataproc jobs status
+      operationId: get_batch_status_async
+      parameters:
+        - name: workload_id
+          in: path
+          description: ID of dataproc job
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '500':
+          description: internal server error operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExceptionResponse'
+        '404':
+          description: Job not found
+
+  '/batch-async/edit-job/{workload_id}':
+    post:
+      tags:
+        - batch-async
+      summary: Edit dataproc jobs status
+      operationId: edit_async_batch_job
+      parameters:
+        - name: workload_id
+          in: path
+          description: ID of dataproc job
+          required: true
+          schema:
+            type: string
+      requestBody:
+        $ref: '#/components/requestBodies/Job'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '500':
+          description: internal server error operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExceptionResponse'
+        '404':
+          description: Job not found
+
+  '/batch-async/delete-job/{workload_id}':
+    delete:
+      tags:
+        - batch-async
+      summary: Remove dataproc job from queue
+      operationId: delete_async_dataproc_job
+      parameters:
+        - name: workload_id
+          in: path
+          description: ID of dataproc job
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '500':
+          description: internal server error operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExceptionResponse'
+        '404':
+          description: Job not found
+
+  /streaming/create-streaming-job-from-template:
+    post:
+      tags:
+        - streaming
+      summary: Create dataflow streaming job using allowed templates (Pub/Sub -> BQ)
+      description: >-
+        It'll generate a Pub/Sub topic and return it in the reponse
+      operationId: subimmit_streaming_job
+      requestBody:
+        $ref: '#/components/requestBodies/StreamingJob'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '500':
+          description: internal server error operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExceptionResponse'
+        '404':
+          description: template not found
+
+  '/streaming/edit-streaming-job-template/{workload_id}':
+    post:
+      tags:
+        - streaming
+      summary: Edit streaming job
+      operationId: edit_streaming_job
+      parameters:
+        - name: workload_id
+          in: path
+          description: ID of dataflow streaming templated job
+          required: true
+          schema:
+            type: string
+      requestBody:
+        $ref: '#/components/requestBodies/StreamingJob'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '500':
+          description: internal server error operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExceptionResponse'
+        '404':
+          description: Job or template not found
+
+  '/streaming/streaming-job-status/{workload_id}':
+    get:
+      tags:
+        - streaming
+      summary: Verify status of streaming job
+      operationId: get_streaming_status
+      parameters:
+        - name: workload_id
+          in: path
+          description: ID of dataflow streaming templated job
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '500':
+          description: internal server error operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExceptionResponse'
+        '404':
+          description: Job not found
+
+  '/streaming/delete-streaming-job/{workload_id}':
+    delete:
+      tags:
+        - streaming
+      summary: Stop dataflow job
+      operationId: delete_streaming_job
+      parameters:
+        - name: workload_id
+          in: path
+          description: ID of dataflow streaming templated job
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '500':
+          description: internal server error operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExceptionResponse'
+        '404':
+          description: Job not found
+  /upload:
+    post:
+      tags:
+        - gcs
+      summary: Upload a file to gcs bucket
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: Bad request (e.g., invalid file type)
+        '500':
+          description: internal server error operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExceptionResponse'
+                
+  /healthcheck:
+    get:
+      tags:
+        - health
+      summary: Server heartbeat operation
+      description: >-
+        Check heartbeat
+      security: []
+      responses:
+        '200':
+          description: OK
+        '500':
+          description: internal server error operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExceptionResponse'
+                
+components:
+  schemas:
+    SuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        response:
+          type: object
+        requestId:
+          type: string
+    ExceptionResponse:
+      type: object
+      properties:
+        error:
+          type: string
+        messages:
+          type: object
+    BatchJob:
+      type: object
+      properties:
+        workload_scheduler_cfg:
+          type: object
+          example:
+            default_args: {}
+            schedule_interval: "@once"
+            start_date: "2019-08-24T14:15:22Z"
+            end_date: "2019-08-24T14:15:22Z"
+            data_interval_start: "2019-08-24T14:15:22Z"
+            data_interval_end: "2019-08-24T14:15:22Z"
+            conf: {}
+        workload_templates:
+          type: object
+          example:
+            dataproc_tempalte_name: https://github.com/GoogleCloudPlatform/dataproc-templates/tree/main/python/dataproc_templates
+            dataflow_tempalte_name: https://cloud.google.com/dataflow/docs/guides/templates/provided-templates?hl=pt-br
+        workload_cluster_ccfg:
+          type: object
+          example:
+            data_load: "light"
+            config:
+              gceClusterConfig:
+                zoneUri: "us-central1-a"
+                metadata:
+                  dataproc-beta-enable-ephemeral-hdp: "true"
+                nodeGroups:
+                  - name: "worker-group"
+                    nodeGroup:
+                      nodeCount: 2
+                      machineTypeUri: "n1-standard-4"
+                      diskConfig:
+                        bootDiskType: "pd-ssd"
+                        bootDiskSizeGb: 50
+                      accelerators:
+                        - acceleratorTypeUri: "nvidia-tesla-t4"
+                          acceleratorCount: 1
+                masterConfig:
+                  numInstances: 1
+                  machineTypeUri: "n1-standard-4"
+                  diskConfig:
+                    bootDiskType: "pd-ssd"
+                    bootDiskSizeGb: 50
+                  accelerators:
+                    - acceleratorTypeUri: "nvidia-tesla-t4"
+                      acceleratorCount: 1
+              softwareConfig:
+                imageVersion: "1.5-debian10"
+                properties:
+                  dataproc:dataproc.allow.zero.workers: "true"
+            lifecycleConfig: 
+              autoDeleteTtl: 600s
+            pysparkJob:
+              mainPythonFileUri: gs://fobar/word_count.py
+              args: []
+              properties: {}
+    StreamingJob:
+      type: object
+      properties:
+        workload_templates:
+          type: object
+          example:
+            dataflow_tempalte_name: https://cloud.google.com/dataflow/docs/guides/templates/provided-templates?hl=pt-br
+        workload_ccfg:
+          type: object
+          example:
+              config: {}
+              args: []
+              properties: {}
+  requestBodies:
+    Job:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BatchJob'
+    StreamingJob:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/StreamingJob'
